@@ -1,5 +1,6 @@
-{% assign workers = workers %}
+{% assign workers = workers | default: data.workers %}
 {% assign worker = workers.first %}
+
 {% assign is_online = false %}
 {% if worker %}
   {% assign is_online = true %}
@@ -28,9 +29,15 @@
   {% assign hashrate_unit = 'kH/s' %}
 {% endif %}
 
+{% assign hashrate_display_fallback = hashrate_value | round: 2 | append: ' ' | append: hashrate_unit %}
+{% assign hashrate_display = hashrate_display | default: hashrate_display_fallback %}
+
+{% assign best_difficulty_display_fallback = best_difficulty | round: 2 %}
+{% assign best_difficulty_display = best_difficulty_display | default: best_difficulty_display_fallback %}
+
 {% assign now_epoch = 'now' | date: '%s' | plus: 0 %}
 
-{% assign uptime_label = 'N/A' %}
+{% assign uptime_label_fallback = 'N/A' %}
 {% if worker and worker.startTime %}
   {% assign start_epoch = worker.startTime | date: '%s' | plus: 0 %}
   {% assign uptime_seconds = now_epoch | minus: start_epoch %}
@@ -45,15 +52,15 @@
   {% assign uptime_minutes = uptime_minutes_total | modulo: 60 %}
 
   {% if uptime_days > 0 %}
-    {% assign uptime_label = uptime_days | append: 'd ' | append: uptime_hours | append: 'h' %}
+    {% assign uptime_label_fallback = uptime_days | append: 'd ' | append: uptime_hours | append: 'h' %}
   {% elsif uptime_hours > 0 %}
-    {% assign uptime_label = uptime_hours | append: 'h ' | append: uptime_minutes | append: 'm' %}
+    {% assign uptime_label_fallback = uptime_hours | append: 'h ' | append: uptime_minutes | append: 'm' %}
   {% else %}
-    {% assign uptime_label = uptime_minutes | append: 'm' %}
+    {% assign uptime_label_fallback = uptime_minutes | append: 'm' %}
   {% endif %}
 {% endif %}
 
-{% assign last_seen_label = 'N/A' %}
+{% assign last_seen_label_fallback = 'N/A' %}
 {% if worker and worker.lastSeen %}
   {% assign last_seen_epoch = worker.lastSeen | date: '%s' | plus: 0 %}
   {% assign last_seen_delta = now_epoch | minus: last_seen_epoch %}
@@ -62,46 +69,49 @@
   {% endif %}
 
   {% if last_seen_delta < 10 %}
-    {% assign last_seen_label = 'Just Now' %}
+    {% assign last_seen_label_fallback = 'Just Now' %}
   {% elsif last_seen_delta < 60 %}
     {% assign last_seen_seconds = last_seen_delta %}
     {% if last_seen_seconds <= 1 %}
       {% assign last_seen_seconds = 1 %}
     {% endif %}
-    {% assign last_seen_label = last_seen_seconds | append: ' second' %}
+    {% assign last_seen_label_fallback = last_seen_seconds | append: ' second' %}
     {% if last_seen_seconds != 1 %}
-      {% assign last_seen_label = last_seen_label | append: 's' %}
+      {% assign last_seen_label_fallback = last_seen_label_fallback | append: 's' %}
     {% endif %}
-    {% assign last_seen_label = last_seen_label | append: ' ago' %}
+    {% assign last_seen_label_fallback = last_seen_label_fallback | append: ' ago' %}
   {% elsif last_seen_delta < 3600 %}
     {% assign last_seen_minutes = last_seen_delta | divided_by: 60 %}
     {% if last_seen_minutes <= 1 %}
       {% assign last_seen_minutes = 1 %}
     {% endif %}
-    {% assign last_seen_label = last_seen_minutes | append: ' minute' %}
+    {% assign last_seen_label_fallback = last_seen_minutes | append: ' minute' %}
     {% if last_seen_minutes != 1 %}
-      {% assign last_seen_label = last_seen_label | append: 's' %}
+      {% assign last_seen_label_fallback = last_seen_label_fallback | append: 's' %}
     {% endif %}
-    {% assign last_seen_label = last_seen_label | append: ' ago' %}
+    {% assign last_seen_label_fallback = last_seen_label_fallback | append: ' ago' %}
   {% elsif last_seen_delta < 86400 %}
     {% assign last_seen_hours = last_seen_delta | divided_by: 3600 %}
     {% if last_seen_hours <= 1 %}
       {% assign last_seen_hours = 1 %}
     {% endif %}
-    {% assign last_seen_label = last_seen_hours | append: ' hour' %}
+    {% assign last_seen_label_fallback = last_seen_hours | append: ' hour' %}
     {% if last_seen_hours != 1 %}
-      {% assign last_seen_label = last_seen_label | append: 's' %}
+      {% assign last_seen_label_fallback = last_seen_label_fallback | append: 's' %}
     {% endif %}
-    {% assign last_seen_label = last_seen_label | append: ' ago' %}
+    {% assign last_seen_label_fallback = last_seen_label_fallback | append: ' ago' %}
   {% else %}
     {% assign last_seen_days = last_seen_delta | divided_by: 86400 %}
     {% if last_seen_days <= 1 %}
       {% assign last_seen_days = 1 %}
     {% endif %}
-    {% assign last_seen_label = last_seen_days | append: ' day' %}
+    {% assign last_seen_label_fallback = last_seen_days | append: ' day' %}
     {% if last_seen_days != 1 %}
-      {% assign last_seen_label = last_seen_label | append: 's' %}
+      {% assign last_seen_label_fallback = last_seen_label_fallback | append: 's' %}
     {% endif %}
-    {% assign last_seen_label = last_seen_label | append: ' ago' %}
+    {% assign last_seen_label_fallback = last_seen_label_fallback | append: ' ago' %}
   {% endif %}
 {% endif %}
+
+{% assign uptime_label = uptime_label_display | default: uptime_label_fallback %}
+{% assign last_seen_label = last_seen_label_display | default: last_seen_label_fallback %}

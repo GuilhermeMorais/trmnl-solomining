@@ -11,7 +11,7 @@
 
   <div class="item item--emphasis-2">
     <div class="meta"><span class="label label--small">Hashrate</span></div>
-    <div class="content"><span class="value text--primary" data-fit-value="true">{{ hashrate_value | round: 2 }} {{ hashrate_unit }}</span></div>
+    <div class="content"><span class="value text--primary" data-fit-value="true">{{ hashrate_display }}</span></div>
   </div>
 
   <div class="grid grid--cols-2 gap--small">
@@ -27,7 +27,7 @@
 
   <div class="item">
     <div class="meta"><span class="label label--small">Best Diff</span></div>
-    <div class="content"><span class="value text--warning">{{ best_difficulty | round: 2 }}</span></div>
+    <div class="content"><span class="value text--warning">{{ best_difficulty_display }}</span></div>
   </div>
 </div>
 
