@@ -25,7 +25,7 @@ custom_fields:
 - keyname: author_bio
   name: About This Plugin
   field_type: author_bio
-  category: "bitcoin,kpi"
+  category: "finance,kpi"
   description: Track a solo BTC miner for NMMiner or Public-Pool. You can find me on <a href="https://dotnet.social/@Gui">Mastodon</a>, or @glmsharp on Discord or send an email. Version 1.0 (2026-07-19)
   github_url: https://github.com/GuilhermeMorais/trmnl-solomining
   email_address: gui.lopes@gmail.com
