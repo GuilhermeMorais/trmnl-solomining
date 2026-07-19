@@ -115,3 +115,16 @@
 
 {% assign uptime_label = uptime_label_display | default: uptime_label_fallback %}
 {% assign last_seen_label = last_seen_label_display | default: last_seen_label_fallback %}
+
+{% template shared_title_bar %}
+<div class="title_bar">
+  <span class="title">Solo Mining</span>
+  <span class="instance">
+    {% if trmnl.user and trmnl.user.utc_offset != blank %}
+      {{ "now" | date: '%s' | plus: trmnl.user.utc_offset | date: "%H:%M:%S" }}
+    {% else %}
+      {{ "now" | date: "%H:%M:%S" }}
+    {% endif %}
+  </span>
+</div>
+{% endtemplate %}

@@ -31,9 +31,4 @@
   </div>
 </div>
 
-<div class="title_bar">
-  <span class="title">Solo Mining</span>
-  <span class="instance">
-    {{ "now" | date: '%s' | plus: trmnl.user.utc_offset | date: "%H:%M" }}
-  </span>
-</div>
+{% render "shared_title_bar" %}
