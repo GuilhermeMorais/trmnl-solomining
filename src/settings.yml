@@ -1,0 +1,24 @@
+---
+strategy: polling
+no_screen_padding: 'no'
+dark_mode: 'no'
+static_data: ''
+polling_verb: get
+polling_url: https://solobtc.nmminer.com/api/client/{{ wallet_code }}
+polling_headers: ''
+polling_body: ''
+custom_fields:
+- keyname: wallet_code
+  field_type: string
+  name: Wallet Code
+  description: Wallet code used in https://solobtc.nmminer.com/api/client/{{WalletCode}}
+  help_text: Paste your nmminer wallet code exactly.
+- keyname: author_bio
+  name: About This Plugin
+  field_type: author_bio
+  category: "bitcoin,kpi"
+  description: Track a solo BTC miner for NMMiner or Public-Pool. You can find me on <a href="https://dotnet.social/@Gui">Mastodon</a>, or @glmsharp on Discord or send an email. Version 1.0 (2026-07-19)
+  github_url: https://github.com/GuilhermeMorais/trmnl-solomining
+  email_address: gui.lopes@gmail.com
+name: Solo Mining Worker Status
+refresh_interval: 1
