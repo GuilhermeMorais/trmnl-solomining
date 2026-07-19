@@ -1,0 +1,20 @@
+---
+watch:
+  - .trmnlp.yml
+  - src
+custom_fields:
+  wallet_code: '{{ env.WALLET_CODE }}' # wallet for local test
+  pool_provider: nmminer
+time_zone: Europe/London
+variables:
+  data:
+    bestDifficulty: 2658.3468503179597
+    workersCount: 1
+    workers:
+      - sessionId: offLine
+        name: worker
+        bestDifficulty: '100000.0'
+        hashRate: 3010000.7022284867
+        startTime: '2026-07-09T04:41:30.358Z'
+        lastSeen: '2026-07-19T12:11:43.392Z'
+trmnl: {}

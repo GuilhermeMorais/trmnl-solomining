@@ -1,0 +1,18 @@
+<div class="layout layout--col">
+  <div class="flex flex--row flex--align-center gap--small">
+    <span class="label {% if is_online %}label--success{% else %}label--error{% endif %}">
+      {% if is_online %}Online{% else %}Offline{% endif %}
+    </span>
+  </div>
+
+  <div class="value text--primary mt--1" data-fit-value="true">
+    {{ hashrate_display }}
+  </div>
+
+  <div class="label label--small text--primary mt--1">Difficulty {{ best_difficulty_display }}</div>
+  <div class="label label--small text--primary mt--1">Over all Difficulty {{ best_overall_difficulty_display }}</div>
+  <div class="label label--small">Up {{ uptime_label }}</div>
+  <div class="label label--small">Seen {{ last_seen_label }}</div>
+</div>
+
+{% render "shared_title_bar" with session_id: sessionId %}

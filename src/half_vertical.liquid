@@ -1,0 +1,54 @@
+<div class="layout layout--col">
+  <div class="item {% if is_online %}text--success{% else %}text--error{% endif %}">
+    <div class="meta"><span class="label label--small"> </span></div>
+    <div class="content">
+      <span class="value value--large {% if is_online %}text--success{% else %}text--error{% endif %}">{% if is_online %}Online{% else %}Offline{% endif %}</span>
+    </div>
+  </div>
+
+  <div class="item mt--1">
+    <div class="meta"><span class="label label--small"> </span></div>
+    <div class="content">
+      <span class="value text--primary" data-fit-value="true">{{ hashrate_display }}</span>
+      <div class="label label--small mt--1">Current Hashrate</div>
+    </div>
+  </div>
+
+  <div class="grid grid--cols-2 gap--small mt--1">
+    <div class="item">
+      <div class="meta"><span class="label label--small"> </span></div>
+      <div class="content">
+        <span class="value value--small text--primary">{{ best_difficulty_display }}</span>
+        <div class="label label--small mt--1">Best Difficulty</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="meta"><span class="label label--small"> </span></div>
+      <div class="content">
+        <span class="value value--small text--primary">{{ best_overall_difficulty_display }}</span>
+        <div class="label label--small mt--1">Best overall Difficulty</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid--cols-2 gap--small mt--1">
+    <div class="item">
+      <div class="meta"><span class="label label--small"> </span></div>
+      <div class="content">
+        <span class="value value--small text--primary">{{ uptime_label }}</span>
+        <div class="label label--small mt--1">Uptime</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="meta"><span class="label label--small"> </span></div>
+      <div class="content">
+        <span class="value value--small text--primary">{{ last_seen_label }}</span>
+        <div class="label label--small mt--1">Last Seen</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% render "shared_title_bar" with session_id: sessionId %}
