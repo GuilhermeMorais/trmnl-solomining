@@ -4,6 +4,7 @@ watch:
   - src
 custom_fields:
   wallet_code: '{{ env.WALLET_CODE }}' # wallet for local test
+  pool_provider: nmminer
 time_zone: Europe/London
 variables:
   data:

@@ -4,15 +4,24 @@ no_screen_padding: 'no'
 dark_mode: 'no'
 static_data: ''
 polling_verb: get
-polling_url: https://solobtc.nmminer.com/api/client/{{ wallet_code }}
+polling_url: '{% if pool_provider == "public_pool" %}https://public-pool.io:40557/api/client/{{ wallet_code }}{% else %}https://solobtc.nmminer.com/api/client/{{ wallet_code }}{% endif %}'
 polling_headers: ''
 polling_body: ''
 custom_fields:
+- keyname: pool_provider
+  field_type: select
+  name: Pool Provider
+  options:
+  - 'NM Miner: nmminer'
+  - 'Public Pool: public_pool'
+  default: nmminer
+  description: Choose the mining pool provider.
+  help_text: Select NM Miner or Public Pool.
 - keyname: wallet_code
   field_type: string
   name: Wallet Code
-  description: Wallet code used in https://solobtc.nmminer.com/api/client/{{WalletCode}}
-  help_text: Paste your nmminer wallet code exactly.
+  description: Wallet code used in the selected pool API URL.
+  help_text: Paste your wallet code exactly.
 - keyname: author_bio
   name: About This Plugin
   field_type: author_bio
