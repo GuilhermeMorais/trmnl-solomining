@@ -1,28 +1,46 @@
 # trmnl-solomining
 
-TRMNL plugin to monitor a SoloBTC miner via:
+TRMNL plugin to monitor a Solo BTC worker.
 
-`https://solobtc.nmminer.com/api/client/{{WalletCode}}`
+## Data sources
 
-## Plan (grill-me + trmnl)
+The plugin supports 2 providers, selected via a custom field:
 
-1. **Data contract first**
-   - Treat `workers[0]` as the primary agent.
-   - Online = `workers` array has at least one object.
-   - Use `workers[0].hashRate` and `workers[0].bestDifficulty` for display.
-2. **Render rules**
-   - Show exactly 3 metrics: status, current hashrate, worker best difficulty.
-   - Add robust fallbacks for empty/missing data (offline, zero values).
-   - Keep layout framework-only (no custom CSS), e-ink-friendly text hierarchy.
-3. **Validation path**
-   - Preview with sample JSON (`.trmnlp.yml`) and real wallet code.
-   - Confirm each size template (`full`, `half_horizontal`, `half_vertical`, `quadrant`) shows all 3 metrics.
+- **NM Miner** → `https://solobtc.nmminer.com/api/client/{{ wallet_code }}`
+- **Public Pool** → `https://public-pool.io:40557/api/client/{{ wallet_code }}`
+
+`polling_url` is selected dynamically from `pool_provider` in `src/settings.yml`.
+
+## Configuration
+
+In plugin settings:
+
+- `pool_provider` (select)
+  - `NM Miner`
+  - `Public Pool`
+- `wallet_code` (string)
+
+## Local preview
+
+Set local values in `.trmnlp.yml`:
+
+```yml
+custom_fields:
+  wallet_code: '{{ env.WALLET_CODE }}'
+  pool_provider: nmminer
+```
+
+Switch provider with:
+
+- `nmminer`
+- `public_pool`
 
 ## Files
 
-- `src/settings.yml` — polling config and custom fields
+- `src/settings.yml` — polling strategy + custom fields
+- `src/transform.js` — normalises API payload for templates
 - `src/full.liquid`
 - `src/half_horizontal.liquid`
 - `src/half_vertical.liquid`
 - `src/quadrant.liquid`
-- `.trmnlp.yml` — local preview variables
+- `.trmnlp.yml` — local preview config
