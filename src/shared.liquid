@@ -11,6 +11,7 @@
 {% if worker %}
   {% assign raw_hashrate = worker.hashRate | plus: 0 %}
   {% assign best_difficulty = worker.bestDifficulty | plus: 0 %}
+  {% assign sessionId = worker.sessionId %}
 {% endif %}
 
 {% assign hashrate_value = raw_hashrate %}
@@ -32,7 +33,21 @@
 {% assign hashrate_display_fallback = hashrate_value | round: 2 | append: ' ' | append: hashrate_unit %}
 {% assign hashrate_display = hashrate_display | default: hashrate_display_fallback %}
 
+{% assign best_difficulty_abs = best_difficulty | abs %}
 {% assign best_difficulty_display_fallback = best_difficulty | round: 2 %}
+{% if best_difficulty_abs >= 1000000000000 %}
+  {% assign best_difficulty_scaled = best_difficulty | divided_by: 1000000000000.0 %}
+  {% assign best_difficulty_display_fallback = best_difficulty_scaled | round: 2 | append: 'T' %}
+{% elsif best_difficulty_abs >= 1000000000 %}
+  {% assign best_difficulty_scaled = best_difficulty | divided_by: 1000000000.0 %}
+  {% assign best_difficulty_display_fallback = best_difficulty_scaled | round: 2 | append: 'B' %}
+{% elsif best_difficulty_abs >= 1000000 %}
+  {% assign best_difficulty_scaled = best_difficulty | divided_by: 1000000.0 %}
+  {% assign best_difficulty_display_fallback = best_difficulty_scaled | round: 2 | append: 'M' %}
+{% elsif best_difficulty_abs >= 1000 %}
+  {% assign best_difficulty_scaled = best_difficulty | divided_by: 1000.0 %}
+  {% assign best_difficulty_display_fallback = best_difficulty_scaled | round: 2 | append: 'k' %}
+{% endif %}
 {% assign best_difficulty_display = best_difficulty_display | default: best_difficulty_display_fallback %}
 
 {% assign now_epoch = 'now' | date: '%s' | plus: 0 %}
@@ -118,8 +133,9 @@
 
 {% template shared_title_bar %}
 <div class="title_bar">
-  <span class="title">Solo Mining</span>
+  <span class="title">Solo Mining - {{ session_id | default: 'N/A' }}</span>
   <span class="instance">
+
     {% if trmnl.user and trmnl.user.utc_offset != blank %}
       {{ "now" | date: '%s' | plus: trmnl.user.utc_offset | date: "%H:%M:%S" }}
     {% else %}

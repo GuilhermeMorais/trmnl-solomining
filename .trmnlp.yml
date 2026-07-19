@@ -10,9 +10,9 @@ variables:
     bestDifficulty: 2658.3468503179597
     workersCount: 1
     workers:
-      - sessionId: 12345c6
+      - sessionId: offLine
         name: worker
-        bestDifficulty: '100.0'
+        bestDifficulty: '100000.0'
         hashRate: 3010000.7022284867
         startTime: '2026-07-09T04:41:30.358Z'
         lastSeen: '2026-07-19T12:11:43.392Z'

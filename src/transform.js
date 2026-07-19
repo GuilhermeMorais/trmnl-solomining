@@ -28,6 +28,18 @@ function formatRelative(seconds) {
   return `${value} day${value === 1 ? "" : "s"} ago`;
 }
 
+function formatCompactNumber(value) {
+  const numeric = Number(value) || 0;
+  const abs = Math.abs(numeric);
+
+  if (abs >= 1000000000000) return (numeric / 1000000000000).toFixed(2) + "T";
+  if (abs >= 1000000000) return (numeric / 1000000000).toFixed(2) + "B";
+  if (abs >= 1000000) return (numeric / 1000000).toFixed(2) + "M";
+  if (abs >= 1000) return (numeric / 1000).toFixed(2) + "k";
+
+  return numeric.toFixed(2);
+}
+
 function formatUptime(startIso, nowEpoch) {
   if (!startIso) return "N/A";
 
@@ -69,7 +81,7 @@ function transform(input) {
   return {
     ...source,
     hashrate_display: formatHashrate(rawHashrate),
-    best_difficulty_display: bestDifficulty.toFixed(2),
+    best_difficulty_display: formatCompactNumber(bestDifficulty),
     uptime_label_display: formatUptime(worker ? worker.startTime : null, nowEpoch),
     last_seen_label_display: lastSeenLabel
   };
