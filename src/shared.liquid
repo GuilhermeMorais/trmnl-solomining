@@ -50,6 +50,23 @@
 {% endif %}
 {% assign best_difficulty_display = best_difficulty_display | default: best_difficulty_display_fallback %}
 
+{% assign best_overall_difficulty = bestDifficulty | default: data.bestDifficulty | plus: 0 %}
+{% assign best_overall_difficulty_abs = best_overall_difficulty | abs %}
+{% assign best_overall_difficulty_display = best_overall_difficulty | round: 2 %}
+{% if best_overall_difficulty_abs >= 1000000000000 %}
+  {% assign best_overall_difficulty_scaled = best_overall_difficulty | divided_by: 1000000000000.0 %}
+  {% assign best_overall_difficulty_display = best_overall_difficulty_scaled | round: 2 | append: 'T' %}
+{% elsif best_overall_difficulty_abs >= 1000000000 %}
+  {% assign best_overall_difficulty_scaled = best_overall_difficulty | divided_by: 1000000000.0 %}
+  {% assign best_overall_difficulty_display = best_overall_difficulty_scaled | round: 2 | append: 'B' %}
+{% elsif best_overall_difficulty_abs >= 1000000 %}
+  {% assign best_overall_difficulty_scaled = best_overall_difficulty | divided_by: 1000000.0 %}
+  {% assign best_overall_difficulty_display = best_overall_difficulty_scaled | round: 2 | append: 'M' %}
+{% elsif best_overall_difficulty_abs >= 1000 %}
+  {% assign best_overall_difficulty_scaled = best_overall_difficulty | divided_by: 1000.0 %}
+  {% assign best_overall_difficulty_display = best_overall_difficulty_scaled | round: 2 | append: 'k' %}
+{% endif %}
+
 {% assign now_epoch = 'now' | date: '%s' | plus: 0 %}
 
 {% assign uptime_label_fallback = 'N/A' %}
@@ -133,13 +150,13 @@
 
 {% template shared_title_bar %}
 <div class="title_bar">
-  <span class="title">Solo Mining - {{ session_id | default: 'N/A' }}</span>
+  <span class="title">Solo Mining </span>
   <span class="instance">
-
+    {{ session_id | default: 'N/A' }}
     {% if trmnl.user and trmnl.user.utc_offset != blank %}
-      {{ "now" | date: '%s' | plus: trmnl.user.utc_offset | date: "%H:%M:%S" }}
+      {{ "now" | date: '%s' | plus: trmnl.user.utc_offset | date: "%H:%M" }}
     {% else %}
-      {{ "now" | date: "%H:%M:%S" }}
+      {{ "now" | date: "%H:%M" }}
     {% endif %}
   </span>
 </div>

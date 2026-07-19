@@ -5,11 +5,12 @@
     </span>
   </div>
 
-  <div class="value value--large text--primary mt--1" data-fit-value="true">
+  <div class="value text--primary mt--1" data-fit-value="true">
     {{ hashrate_display }}
   </div>
 
-  <div class="label label--small text--warning mt--1">Diff {{ best_difficulty_display }}</div>
+  <div class="label label--small text--primary mt--1">Difficulty {{ best_difficulty_display }}</div>
+  <div class="label label--small text--primary mt--1">Over all Difficulty {{ best_overall_difficulty_display }}</div>
   <div class="label label--small">Up {{ uptime_label }}</div>
   <div class="label label--small">Seen {{ last_seen_label }}</div>
 </div>
