@@ -4,9 +4,15 @@ no_screen_padding: 'no'
 dark_mode: 'no'
 static_data: ''
 polling_verb: get
+framework_version: latest
+serverless_language: node
+refresh_interval_floor: ''
 polling_url: '{% if pool_provider == "public_pool" %}https://public-pool.io:40557/api/client/{{ wallet_code }}{% else %}https://solobtc.nmminer.com/api/client/{{ wallet_code }}{% endif %}'
 polling_headers: ''
 polling_body: ''
+id: 386753
+oauth_enabled: 'false'
+oauth_pkce_enabled: 'no'
 custom_fields:
 - keyname: pool_provider
   field_type: select
@@ -25,9 +31,10 @@ custom_fields:
 - keyname: author_bio
   name: About This Plugin
   field_type: author_bio
-  category: "finance,kpi"
+  category: finance,kpi
   description: Track a solo BTC miner for NMMiner or Public-Pool. You can find me on <a href="https://dotnet.social/@Gui">Mastodon</a>, or @glmsharp on Discord or send an email. Version 1.0 (2026-07-19)
   github_url: https://github.com/GuilhermeMorais/trmnl-solomining
   email_address: gui.lopes@gmail.com
 name: Solo Mining Worker Status
-refresh_interval: 1
+description: ''
+refresh_interval: 30
