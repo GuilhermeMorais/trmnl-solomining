@@ -1,51 +1,54 @@
-<div class="layout layout--col">
-  <div class="item  {% if is_online %}text--success{% else %}text--error{% endif %}">
+<div class="layout layout--col gap--space-between">
+  <div class="grid grid--cols-2 gap--medium">
+    <div class="item {% if is_online %}text--success{% else %}text--error{% endif %}">
       <div class="meta"></div>
       <div class="content">
-        <span class="value value--large {% if is_online %}text--success{% else %}text--error{% endif %}">{% if is_online %}Online{% else %}Offline{% endif %}</span>
-      </div>
-    </div>
-
-  <div class="item">
-    <div class="meta"></div>
-    <div class="content">
-      <span class="value value--xlarge text--primary" data-fit-value="true">{{ hashrate_display }}</span>
-      <div class="label label--large mt--1">Current Hashrate</div>
-    </div>
-  </div>
-
-  <div class="grid grid--cols-2 gap--small mt--1">
-    <div class="item">
-      <div class="meta"></div>
-      <div class="content">
-        <span class="value text--primary">{{ best_difficulty_display }}</span>
-        <div class="label label--large mt--1">Best Difficulty</div>
+        <span class="value value--xlarge lg:value--xxlarge 4bit:text--black {% if is_online %}text--success{% else %}text--error{% endif %}">{% if is_online %}Online{% else %}Offline{% endif %}</span>
+        <span class="label label--large">Worker Status</span>
       </div>
     </div>
 
     <div class="item">
       <div class="meta"></div>
       <div class="content">
-        <span class="value text--primary">{{ best_overall_difficulty_display }}</span>
-        <div class="label label--large mt--1">Best overall Difficulty</div>
+        <span class="value value--xlarge lg:value--xxlarge text--primary" data-fit-value="true">{{ hashrate_display }}</span>
+        <span class="label label--large">Current Hashrate</span>
       </div>
     </div>
   </div>
 
-  <div class="grid grid--cols-2 gap--small mt--1">
+  <div class="divider"></div>
+
+  <div class="grid grid--cols-2 gap--medium">
     <div class="item">
       <div class="meta"></div>
       <div class="content">
-        <span class="value text--primary">{{ uptime_label }}</span>
-        <div class="label label--large mt--1">Uptime</div>
+        <span class="value value--large lg:value--xlarge text--primary">{{ best_difficulty_display }}</span>
+        <span class="label label--large">Best Difficulty</span>
       </div>
     </div>
 
     <div class="item">
       <div class="meta"></div>
       <div class="content">
-        <span class="value text--primary">{{ last_seen_label }}</span>
-        <div class="label label--large mt--1">Last Seen</div>
+        <span class="value value--large lg:value--xlarge text--primary">{{ best_overall_difficulty_display }}</span>
+        <span class="label label--large">Best Overall Difficulty</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="meta"></div>
+      <div class="content">
+        <span class="value value--large lg:value--xlarge">{{ uptime_label }}</span>
+        <span class="label label--large">Uptime</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="meta"></div>
+      <div class="content">
+        <span class="value value--large lg:value--xlarge">{{ last_seen_label }}</span>
+        <span class="label label--large">Last Seen</span>
       </div>
     </div>
   </div>

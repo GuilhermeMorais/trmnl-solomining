@@ -9,10 +9,13 @@
     {{ hashrate_display }}
   </div>
 
-  <div class="label label--small text--primary mt--1">Difficulty {{ best_difficulty_display }}</div>
-  <div class="label label--small text--primary mt--1">Over all Difficulty {{ best_overall_difficulty_display }}</div>
-  <div class="label label--small">Up {{ uptime_label }}</div>
-  <div class="label label--small">Seen {{ last_seen_label }}</div>
+  <div class="label label--small text--primary">Difficulty {{ best_difficulty_display }}</div>
+  <div class="label label--small text--primary">Overall difficulty {{ best_overall_difficulty_display }}</div>
+
+  <div class="flex flex--row gap--small">
+    <span class="label label--small">Up {{ uptime_label }}</span>
+    <span class="label label--small">Seen {{ last_seen_label }}</span>
+  </div>
 </div>
 
 {% render "shared_title_bar" with session_id: sessionId %}
